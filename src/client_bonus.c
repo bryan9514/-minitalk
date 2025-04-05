@@ -6,7 +6,7 @@
 /*   By: brturcio <brturcio@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 17:14:54 by brturcio          #+#    #+#             */
-/*   Updated: 2025/04/05 17:56:03 by brturcio         ###   ########.fr       */
+/*   Updated: 2025/04/05 22:15:17 by brturcio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,25 @@ void	ft_send_signal(int pid, char c)
 	}
 }
 
-void	confirm_signal(int	signal)
+void	confirm_signal(int signal)
 {
-	// if (signal == SIGUSR2)
-	// 	write (1, "1 ", 2);
 	if (signal == SIGUSR1)
-		write (1, "ok", 2);
-	//write (1, "\n", 1);
+		write (1, "✅ Transmission complete\n", 27);
+}
 
+int	check_args(int ac, char **av)
+{
+	if (ac != 3)
+	{
+		write(1, "Sintaxis is : ./client   <PID>   <message>\n", 44);
+		return (0);
+	}
+	if (ft_atoi(av[1]) <= 0 || kill(ft_atoi(av[1]), 0) == -1)
+	{
+		write (1, "PIB not valide\n", 16);
+		return (0);
+	}
+	return (1);
 }
 
 int		main(int ac, char **av)
@@ -43,11 +54,8 @@ int		main(int ac, char **av)
 	int	i;
 	int	pid;
 
-	if (ac != 3)
-	{
-		write(1, "Sintaxis is : ./client   <PID>   <message>\n", 44);
-		return (0);
-	}
+	if (!check_args(ac, av))
+		return (1);
 	pid = ft_atoi(av[1]);
 	i = 0;
 	signal(SIGUSR1, confirm_signal);

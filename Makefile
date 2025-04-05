@@ -6,49 +6,35 @@
 #    By: brturcio <brturcio@student.42angouleme.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/22 11:56:34 by brturcio          #+#    #+#              #
-#    Updated: 2025/04/05 13:54:07 by brturcio         ###   ########.fr        #
+#    Updated: 2025/04/05 22:11:43 by brturcio         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-#===COMPILATION SETTINGS===
-
-CC			= cc
+CC		= cc
 CFLAGS		= -g -Wall -Wextra -Werror
 CPPFLAGS	= -Iinc
-RM			= rm -f
-
-#=======DIRECTORIES========
+RM		= rm -f
 
 SRC_DIR		= src
 OBJ_DIR		= obj
 
-#=====EXECUTABLE NAMES=====
-
-NAME_CLIENT		= client
-NAME_SERVER		= server
+NAME_CLIENT	= client
+NAME_SERVER	= server
 BONUS_CLIENT	= client_bonus
 BONUS_SERVER	= server_bonus
 
-#======SOURCE FILES========
-
 SRC_CLIENT		= $(SRC_DIR)/client.c  $(SRC_DIR)/utils.c $(SRC_DIR)/printf_text.c
 SRC_SERVER		= $(SRC_DIR)/server.c  $(SRC_DIR)/utils.c $(SRC_DIR)/printf_text.c
-SRC_CLIENT_BONUS		= $(SRC_DIR)/client_bonus.c $(SRC_DIR)/utils.c
-SRC_SERVER_BONUS		= $(SRC_DIR)/server_bonus.c $(SRC_DIR)/utils.c
+SRC_CLIENT_BONUS	= $(SRC_DIR)/client_bonus.c $(SRC_DIR)/utils_bonus.c $(SRC_DIR)/printf_text_bonus.c
+SRC_SERVER_BONUS	= $(SRC_DIR)/server_bonus.c $(SRC_DIR)/utils_bonus.c $(SRC_DIR)/printf_text_bonus.c
 
-#======OBJECT FILES========
-
-OBJ_CLIENT			= $(SRC_CLIENT:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
-OBJ_SERVER			= $(SRC_SERVER:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+OBJ_CLIENT		= $(SRC_CLIENT:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+OBJ_SERVER		= $(SRC_SERVER:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 OBJ_CLIENT_BONUS	= $(SRC_CLIENT_BONUS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 OBJ_SERVER_BONUS	= $(SRC_SERVER_BONUS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
-#=======DEFAULT RULE========
-
 all: 	$(OBJ_DIR) $(NAME_CLIENT) $(NAME_SERVER)
 bonus: 	$(OBJ_DIR) $(BONUS_CLIENT) $(BONUS_SERVER) $(OBJ_DIR)
-
-#========COMPILATION========
 
 $(NAME_CLIENT): $(OBJ_CLIENT)
 	@$(CC) $(CFLAGS) $(CPPFLAGS) -o $(NAME_CLIENT) $(OBJ_CLIENT)
@@ -65,7 +51,6 @@ $(BONUS_CLIENT): $(OBJ_CLIENT_BONUS)
 $(BONUS_SERVER): $(OBJ_SERVER_BONUS)
 	@$(CC) $(CFLAGS) $(CPPFLAGS) -o $(BONUS_SERVER) $(OBJ_SERVER_BONUS)
 	@echo "✅ Bonus server compiled"
-#=====OBJECT COMPILATION======
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
@@ -73,23 +58,15 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
-#======CLEAN OBJECT FILES=====
-
 clean:
 	@$(RM) -r $(OBJ_DIR)
-	@echo "🧹 Object files removed"
-
-#=========FULL CLEAN===========
+	@echo "✅ clean done"
 
 fclean: clean
 	@$(RM) $(NAME_CLIENT) $(NAME_SERVER) $(BONUS_CLIENT) $(BONUS_SERVER)
-	@echo "🧹 Executables removed"
-
-#=========RECOMPILE============
+	@echo "✅ fclean done"
 
 re: fclean all
-
-#===========PHONY==============
 
 .PHONY: all clean fclean re
 

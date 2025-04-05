@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
@@ -6,15 +6,16 @@
 /*   By: brturcio <brturcio@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 23:39:35 by brturcio          #+#    #+#             */
-/*   Updated: 2025/03/24 16:01:21 by brturcio         ###   ########.fr       */
+/*   Updated: 2025/04/05 17:42:29 by brturcio         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "minitalk.h"
 
 void	handle_bit_signal(int signal)
 {
-	static int	c;
+	static t_str	*messages = NULL;
+	static char	c;
 	static int	i;
 	int			nb;
 
@@ -26,10 +27,16 @@ void	handle_bit_signal(int signal)
 	c = (c << 1) + nb;
 	if (i == 8)
 	{
+		// write(1, &c, 1);
 		if (c == END_TRANSMISSION)
-			write (1 , "\n", 1);
+		{
+			printf_list(&messages);
+			write (1, "\n", 1);
+			free_all(&messages);
+			// exit(0);
+		}
 		else
-			write (1, &c, 1);
+			add_node_char(&messages, c);
 		c = 0;
 		i = 0;
 	}

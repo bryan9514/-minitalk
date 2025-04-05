@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brturcio <brturcio@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: brturcio <brturcio@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 17:18:18 by brturcio          #+#    #+#             */
-/*   Updated: 2025/03/25 13:25:35 by brturcio         ###   ########.fr       */
+/*   Updated: 2025/04/05 17:56:28 by brturcio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,19 @@ void	handle_bit_signal(int signal, siginfo_t *info, void *context)
 	if (i == 8)
 	{
 		if (c == END_TRANSMISSION)
+		{
 			write (1 , "\n", 1);
+			kill(info->si_pid, SIGUSR1);
+		}
 		else
 			write (1, &c, 1);
 		c = 0;
 		i = 0;
 	}
-	if (signal == SIGUSR2)
-		kill(info->si_pid, SIGUSR2);
-	else if (signal == SIGUSR1)
-		kill(info->si_pid, SIGUSR1);
+	// if (signal == SIGUSR2)
+	// 	kill(info->si_pid, SIGUSR2);
+	// else if (signal == SIGUSR1)
+	// 	kill(info->si_pid, SIGUSR1);
 }
 
 int	main(void)

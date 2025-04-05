@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brturcio <brturcio@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: brturcio <brturcio@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 23:19:21 by brturcio          #+#    #+#             */
-/*   Updated: 2025/03/24 13:36:09 by brturcio         ###   ########.fr       */
+/*   Updated: 2025/04/05 12:36:45 by brturcio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,28 @@ void	ft_send_signal(int pid, char c)
 		i--;
 	}
 }
+int	check_args(int ac, char **av)
+{
+	if (ac != 3)
+	{
+		write(1, "Sintaxis is : ./client   <PID>   <message>\n", 44);
+		return (0);
+	}
+	if (ft_atoi(av[1]) <= 0 || kill(ft_atoi(av[1]), 0) == -1)
+	{
+		write (1, "PIB not valide\n", 16);
+		return (0);
+	}
+	return (1);
+}
 
 int		main(int ac, char **av)
 {
 	int	i;
 	int	pid;
 
-	if (ac != 3)
-	{
-		write(1, "Sintaxis is : ./client   <PID>   <message>\n", 44);
-		return (0);
-	}
+	if (!check_args(ac, av))
+		return (1);
 	pid = ft_atoi(av[1]);
 	i = 0;
 	while (av[2][i])

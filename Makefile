@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: brturcio <brturcio@student.42.fr>          +#+  +:+       +#+         #
+#    By: brturcio <brturcio@student.42angouleme.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/22 11:56:34 by brturcio          #+#    #+#              #
-#    Updated: 2025/03/25 13:38:54 by brturcio         ###   ########.fr        #
+#    Updated: 2025/04/05 13:54:07 by brturcio         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #===COMPILATION SETTINGS===
 
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -g -Wall -Wextra -Werror
 CPPFLAGS	= -Iinc
 RM			= rm -f
 
@@ -31,8 +31,8 @@ BONUS_SERVER	= server_bonus
 
 #======SOURCE FILES========
 
-SRC_CLIENT		= $(SRC_DIR)/client.c  $(SRC_DIR)/utils.c
-SRC_SERVER		= $(SRC_DIR)/server.c  $(SRC_DIR)/utils.c
+SRC_CLIENT		= $(SRC_DIR)/client.c  $(SRC_DIR)/utils.c $(SRC_DIR)/printf_text.c
+SRC_SERVER		= $(SRC_DIR)/server.c  $(SRC_DIR)/utils.c $(SRC_DIR)/printf_text.c
 SRC_CLIENT_BONUS		= $(SRC_DIR)/client_bonus.c $(SRC_DIR)/utils.c
 SRC_SERVER_BONUS		= $(SRC_DIR)/server_bonus.c $(SRC_DIR)/utils.c
 
@@ -45,7 +45,7 @@ OBJ_SERVER_BONUS	= $(SRC_SERVER_BONUS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 #=======DEFAULT RULE========
 
-all: 	$(OBJ_DIR) $(NAME_CLIENT) $(NAME_SERVER) 
+all: 	$(OBJ_DIR) $(NAME_CLIENT) $(NAME_SERVER)
 bonus: 	$(OBJ_DIR) $(BONUS_CLIENT) $(BONUS_SERVER) $(OBJ_DIR)
 
 #========COMPILATION========

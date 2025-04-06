@@ -6,7 +6,7 @@
 /*   By: brturcio <brturcio@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 23:39:35 by brturcio          #+#    #+#             */
-/*   Updated: 2025/04/05 21:34:02 by brturcio         ###   ########.fr       */
+/*   Updated: 2025/04/06 09:11:15 by brturcio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	handle_bit_signal(int signal)
 {
 	static t_str	*messages = NULL;
-	static char	c;
-	static int	i;
-	int		nb;
+	static char		c;
+	static int		i;
+	int				nb;
 
 	if (signal == SIGUSR2)
 		nb = 1;
@@ -27,7 +27,6 @@ void	handle_bit_signal(int signal)
 	c = (c << 1) + nb;
 	if (i == 8)
 	{
-
 		if (c == END_TRANSMISSION)
 		{
 			printf_list(&messages);

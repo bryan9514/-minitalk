@@ -6,19 +6,18 @@
 /*   By: brturcio <brturcio@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 17:18:18 by brturcio          #+#    #+#             */
-/*   Updated: 2025/04/05 22:09:40 by brturcio         ###   ########.fr       */
+/*   Updated: 2025/04/06 13:08:16 by brturcio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "minitalk.h"
 
 void	handle_bit_signal(int signal, siginfo_t *info, void *context)
 {
 	static t_str	*messages = NULL;
-	static int	c;
-	static int	i;
-	int			nb;
+	static int		c;
+	static int		i;
+	int				nb;
 
 	(void)context;
 	if (signal == SIGUSR2)
@@ -32,7 +31,6 @@ void	handle_bit_signal(int signal, siginfo_t *info, void *context)
 		if (c == END_TRANSMISSION)
 		{
 			printf_list(&messages);
-			write (1, "\n", 1);
 			free_all(&messages);
 			kill(info->si_pid, SIGUSR1);
 		}
@@ -50,12 +48,10 @@ int	main(void)
 	sa.sa_sigaction = &handle_bit_signal;
 	sa.sa_flags = SA_SIGINFO;
 	sigemptyset(&sa.sa_mask);
-
-
 	pid_server();
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
 	while (1)
-		sleep(2);
+		pause();
 	return (0);
 }

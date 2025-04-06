@@ -6,7 +6,7 @@
 /*   By: brturcio <brturcio@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 23:19:21 by brturcio          #+#    #+#             */
-/*   Updated: 2025/04/05 22:03:08 by brturcio         ###   ########.fr       */
+/*   Updated: 2025/04/06 09:08:30 by brturcio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	ft_send_signal(int pid, char c)
 		i--;
 	}
 }
+
 int	check_args(int ac, char **av)
 {
 	if (ac != 3)
@@ -42,7 +43,7 @@ int	check_args(int ac, char **av)
 	return (1);
 }
 
-int		main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	int	i;
 	int	pid;

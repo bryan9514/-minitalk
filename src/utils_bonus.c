@@ -6,13 +6,13 @@
 /*   By: brturcio <brturcio@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 20:31:35 by brturcio          #+#    #+#             */
-/*   Updated: 2025/04/05 20:31:36 by brturcio         ###   ########.fr       */
+/*   Updated: 2025/04/06 09:08:56 by brturcio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-int		ft_atoi(const char *nptr)
+int	ft_atoi(const char *nptr)
 {
 	size_t	i;
 	int		sing;

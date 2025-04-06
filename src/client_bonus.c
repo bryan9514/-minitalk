@@ -6,11 +6,13 @@
 /*   By: brturcio <brturcio@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 17:14:54 by brturcio          #+#    #+#             */
-/*   Updated: 2025/04/05 22:15:17 by brturcio         ###   ########.fr       */
+/*   Updated: 2025/04/06 15:08:40 by brturcio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
+static int	g_waiting = 0;
+
 
 void	ft_send_signal(int pid, char c)
 {
@@ -23,7 +25,7 @@ void	ft_send_signal(int pid, char c)
 			kill(pid, SIGUSR2);
 		else
 			kill(pid, SIGUSR1);
-		usleep(500);
+		usleep(1000);
 		i--;
 	}
 }
@@ -31,7 +33,10 @@ void	ft_send_signal(int pid, char c)
 void	confirm_signal(int signal)
 {
 	if (signal == SIGUSR1)
+	{
 		write (1, "✅ Transmission complete\n", 27);
+		g_waiting = 1;
+	}
 }
 
 int	check_args(int ac, char **av)
@@ -49,7 +54,7 @@ int	check_args(int ac, char **av)
 	return (1);
 }
 
-int		main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	int	i;
 	int	pid;
@@ -62,5 +67,7 @@ int		main(int ac, char **av)
 	while (av[2][i])
 		ft_send_signal(pid, av[2][i++]);
 	ft_send_signal(pid, '\0');
+	if (!g_waiting)
+		pause();
 	return (0);
 }

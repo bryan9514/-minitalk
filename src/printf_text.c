@@ -6,7 +6,7 @@
 /*   By: brturcio <brturcio@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:55:31 by brturcio          #+#    #+#             */
-/*   Updated: 2025/04/05 17:06:24 by brturcio         ###   ########.fr       */
+/*   Updated: 2025/04/06 09:12:00 by brturcio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	add_node_char(t_str **node, char c)
 	t_str	*last_node;
 
 	new_node = malloc(sizeof(t_str));
-	if(!new_node)
+	if (!new_node)
 		return (0);
 	new_node->c = c;
 	new_node->next = NULL;
@@ -56,10 +56,4 @@ void	printf_list(t_str **node)
 		write (1, &tmp->c, 1);
 		tmp = tmp->next;
 	}
-
 }
-
-
-
-
-

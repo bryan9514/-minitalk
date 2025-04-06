@@ -6,7 +6,7 @@
 /*   By: brturcio <brturcio@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 23:39:35 by brturcio          #+#    #+#             */
-/*   Updated: 2025/04/06 09:11:15 by brturcio         ###   ########.fr       */
+/*   Updated: 2025/04/06 22:05:28 by brturcio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,6 @@ int	main(void)
 	signal(SIGUSR1, handle_bit_signal);
 	signal(SIGUSR2, handle_bit_signal);
 	while (1)
-		pause();
+		sleep(100);
 	return (0);
 }

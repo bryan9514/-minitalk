@@ -6,7 +6,7 @@
 /*   By: brturcio <brturcio@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 23:39:35 by brturcio          #+#    #+#             */
-/*   Updated: 2025/04/06 22:05:28 by brturcio         ###   ########.fr       */
+/*   Updated: 2025/04/07 14:12:36 by brturcio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,17 @@ void	handle_bit_signal(int signal)
 	c = (c << 1) + nb;
 	if (i == 8)
 	{
-		if (c == END_TRANSMISSION)
+		if (c == '\0')
 		{
 			printf_list(&messages);
 			write (1, "\n", 1);
 			free_all(&messages);
 		}
 		else
-			add_node_char(&messages, c);
+			check_node(&messages, c);
 		c = 0;
 		i = 0;
+		usleep(1);
 	}
 }
 
@@ -46,6 +47,6 @@ int	main(void)
 	signal(SIGUSR1, handle_bit_signal);
 	signal(SIGUSR2, handle_bit_signal);
 	while (1)
-		sleep(100);
+		pause();
 	return (0);
 }

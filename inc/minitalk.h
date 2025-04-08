@@ -6,14 +6,13 @@
 /*   By: brturcio <brturcio@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 14:12:25 by brturcio          #+#    #+#             */
-/*   Updated: 2025/04/06 21:58:27 by brturcio         ###   ########.fr       */
+/*   Updated: 2025/04/07 12:18:43 by brturcio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINITALK_H
 # define MINITALK_H
 
-# define END_TRANSMISSION '\0'
 # include <stdlib.h>
 # include <unistd.h>
 # include <signal.h>
@@ -25,10 +24,11 @@ typedef struct s_str
 }	t_str;
 
 int		ft_atoi(const char *nptr);
+int		add_node_char(t_str **node, char c);
 void	ft_putnbr(int nb);
 void	pid_server(void);
-int		add_node_char(t_str **node, char c);
 void	printf_list(t_str **node);
 void	free_all(t_str **node);
+void	check_node(t_str **menssages, char c);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: brturcio <brturcio@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 23:19:21 by brturcio          #+#    #+#             */
-/*   Updated: 2025/04/06 09:08:30 by brturcio         ###   ########.fr       */
+/*   Updated: 2025/04/07 15:12:13 by brturcio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_send_signal(int pid, char c)
 			kill(pid, SIGUSR2);
 		else
 			kill(pid, SIGUSR1);
-		usleep(500);
+		usleep(10);
 		i--;
 	}
 }

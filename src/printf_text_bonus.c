@@ -6,7 +6,7 @@
 /*   By: brturcio <brturcio@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 20:35:28 by brturcio          #+#    #+#             */
-/*   Updated: 2025/04/06 21:51:48 by brturcio         ###   ########.fr       */
+/*   Updated: 2025/04/07 12:27:14 by brturcio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,3 @@ void	printf_list(t_str **node)
 	}
 	write (1, "\n", 1);
 }
-
-

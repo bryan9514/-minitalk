@@ -6,7 +6,7 @@
 /*   By: brturcio <brturcio@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 20:31:35 by brturcio          #+#    #+#             */
-/*   Updated: 2025/04/06 09:08:56 by brturcio         ###   ########.fr       */
+/*   Updated: 2025/04/07 12:19:09 by brturcio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,13 @@ void	pid_server(void)
 	write (1, "Server PID : ", 13);
 	ft_putnbr(pid);
 	write (1, "\n", 1);
+}
+
+void	check_node(t_str **menssages, char c)
+{
+	if (!add_node_char(menssages, c))
+	{
+		free_all(menssages);
+		exit(1);
+	}
 }

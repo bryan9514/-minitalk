@@ -6,40 +6,69 @@
 /*   By: brturcio <brturcio@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 17:18:18 by brturcio          #+#    #+#             */
-/*   Updated: 2025/04/06 21:57:20 by brturcio         ###   ########.fr       */
+/*   Updated: 2025/04/07 15:09:23 by brturcio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
+// void	handle_bit_signal(int signal, siginfo_t *info, void *context)
+// {
+// 	static t_str	*messages = NULL;
+// 	static int		c;
+// 	static int		i;
+// 	int				nb;
+
+// 	(void)context;
+// 	if (signal == SIGUSR2)
+// 		nb = 1;
+// 	else
+// 		nb = 0;
+// 	i++;
+// 	c = (c << 1) + nb;
+// 	if (i == 8)
+// 	{
+// 		if (c == 0)
+// 		{
+// 			printf_list(&messages);
+// 			free_all(&messages);
+// 			kill(info->si_pid, SIGUSR1);
+// 		}
+// 		else
+// 			check_node(&messages, c);
+// 		c = 0;
+// 		i = 0;
+// 	}
+// 	usleep(1);
+// }
+
 void	handle_bit_signal(int signal, siginfo_t *info, void *context)
 {
-	static t_str	*messages = NULL;
 	static int		c;
 	static int		i;
-	int				nb;
+	static t_str	*messages = NULL;
+	int				bit;
 
 	(void)context;
-	if (signal == SIGUSR2)
-		nb = 1;
-	else
-		nb = 0;
+	bit = (signal == SIGUSR2);
+	c = (c << 1) | bit;
 	i++;
-	c = (c << 1) + nb;
 	if (i == 8)
 	{
-		if (c == END_TRANSMISSION)
+		if (c == 0)
 		{
 			printf_list(&messages);
 			free_all(&messages);
 			kill(info->si_pid, SIGUSR1);
 		}
 		else
-			add_node_char(&messages, c);
+			check_node(&messages, c);
 		c = 0;
 		i = 0;
 	}
+	usleep(2);
 }
+
 
 int	main(void)
 {
@@ -52,6 +81,6 @@ int	main(void)
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
 	while (1)
-		sleep(100);
+		pause();
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: brturcio <brturcio@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:55:31 by brturcio          #+#    #+#             */
-/*   Updated: 2025/04/07 12:27:21 by brturcio         ###   ########.fr       */
+/*   Updated: 2025/04/08 12:10:29 by brturcio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,5 @@ void	printf_list(t_str **node)
 		write (1, &tmp->c, 1);
 		tmp = tmp->next;
 	}
+	write (1, "\n", 1);
 }

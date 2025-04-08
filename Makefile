@@ -5,11 +5,15 @@
 #                                                     +:+ +:+         +:+      #
 #    By: brturcio <brturcio@student.42angouleme.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/03/22 11:56:34 by brturcio          #+#    #+#              #
-#    Updated: 2025/04/05 22:11:43 by brturcio         ###   ########.fr        #
+#    Created: 2025/04/08 08:12:09 by brturcio          #+#    #+#              #
+#    Updated: 2025/04/08 15:23:44 by brturcio         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+NAME_CLIENT	= client
+NAME_SERVER	= server
+BONUS_CLIENT	= client_bonus
+BONUS_SERVER	= server_bonus
 CC		= cc
 CFLAGS		= -Wall -Wextra -Werror
 CPPFLAGS	= -Iinc
@@ -17,11 +21,6 @@ RM		= rm -f
 
 SRC_DIR		= src
 OBJ_DIR		= obj
-
-NAME_CLIENT	= client
-NAME_SERVER	= server
-BONUS_CLIENT	= client_bonus
-BONUS_SERVER	= server_bonus
 
 SRC_CLIENT		= $(SRC_DIR)/client.c  $(SRC_DIR)/utils.c $(SRC_DIR)/printf_text.c
 SRC_SERVER		= $(SRC_DIR)/server.c  $(SRC_DIR)/utils.c $(SRC_DIR)/printf_text.c
@@ -69,5 +68,3 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
-
-

@@ -5,47 +5,50 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: brturcio <brturcio@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/16 23:39:35 by brturcio          #+#    #+#             */
-/*   Updated: 2025/04/07 14:12:36 by brturcio         ###   ########.fr       */
+/*   Created: 2025/04/08 07:54:33 by brturcio          #+#    #+#             */
+/*   Updated: 2025/04/08 13:18:53 by brturcio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-void	handle_bit_signal(int signal)
+void	handle_bit_signal(int signal, siginfo_t *info, void *context)
 {
-	static t_str	*messages = NULL;
-	static char		c;
-	static int		i;
-	int				nb;
+	static t_str			*messages = NULL;
+	static unsigned char	c;
+	static int				bit_count;
+	int						nb;
 
-	if (signal == SIGUSR2)
-		nb = 1;
-	else
-		nb = 0;
-	i++;
+	(void)context;
+	nb = (signal == SIGUSR2);
 	c = (c << 1) + nb;
-	if (i == 8)
+	bit_count++;
+	if (bit_count == 8)
 	{
 		if (c == '\0')
 		{
 			printf_list(&messages);
-			write (1, "\n", 1);
 			free_all(&messages);
 		}
 		else
 			check_node(&messages, c);
+		bit_count = 0;
 		c = 0;
-		i = 0;
-		usleep(1);
 	}
+	usleep(1);
+	kill(info->si_pid, SIGUSR1);
 }
 
 int	main(void)
 {
+	struct sigaction	sa;
+
+	sigemptyset (&sa.sa_mask);
+	sa.sa_sigaction = &handle_bit_signal;
+	sa.sa_flags = SA_SIGINFO;
 	pid_server();
-	signal(SIGUSR1, handle_bit_signal);
-	signal(SIGUSR2, handle_bit_signal);
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 	while (1)
 		pause();
 	return (0);

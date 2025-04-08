@@ -5,78 +5,48 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: brturcio <brturcio@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/24 17:18:18 by brturcio          #+#    #+#             */
-/*   Updated: 2025/04/07 15:09:23 by brturcio         ###   ########.fr       */
+/*   Created: 2025/04/08 12:54:15 by brturcio          #+#    #+#             */
+/*   Updated: 2025/04/08 13:47:30 by brturcio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-// void	handle_bit_signal(int signal, siginfo_t *info, void *context)
-// {
-// 	static t_str	*messages = NULL;
-// 	static int		c;
-// 	static int		i;
-// 	int				nb;
-
-// 	(void)context;
-// 	if (signal == SIGUSR2)
-// 		nb = 1;
-// 	else
-// 		nb = 0;
-// 	i++;
-// 	c = (c << 1) + nb;
-// 	if (i == 8)
-// 	{
-// 		if (c == 0)
-// 		{
-// 			printf_list(&messages);
-// 			free_all(&messages);
-// 			kill(info->si_pid, SIGUSR1);
-// 		}
-// 		else
-// 			check_node(&messages, c);
-// 		c = 0;
-// 		i = 0;
-// 	}
-// 	usleep(1);
-// }
-
 void	handle_bit_signal(int signal, siginfo_t *info, void *context)
 {
-	static int		c;
-	static int		i;
-	static t_str	*messages = NULL;
-	int				bit;
+	static t_str			*messages = NULL;
+	static unsigned char	c;
+	static int				bit_count;
+	int						nb;
 
 	(void)context;
-	bit = (signal == SIGUSR2);
-	c = (c << 1) | bit;
-	i++;
-	if (i == 8)
+	nb = (signal == SIGUSR2);
+	c = (c << 1) + nb;
+	bit_count++;
+	if (bit_count == 8)
 	{
-		if (c == 0)
+		if (c == '\0')
 		{
 			printf_list(&messages);
 			free_all(&messages);
-			kill(info->si_pid, SIGUSR1);
+			kill(info->si_pid, SIGUSR2);
 		}
 		else
 			check_node(&messages, c);
+		bit_count = 0;
 		c = 0;
-		i = 0;
 	}
-	usleep(2);
+	usleep(1);
+	kill(info->si_pid, SIGUSR1);
 }
-
 
 int	main(void)
 {
 	struct sigaction	sa;
 
+	sigemptyset (&sa.sa_mask);
 	sa.sa_sigaction = &handle_bit_signal;
 	sa.sa_flags = SA_SIGINFO;
-	sigemptyset(&sa.sa_mask);
 	pid_server();
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);

@@ -6,7 +6,7 @@
 #    By: brturcio <brturcio@student.42angouleme.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/08 08:12:09 by brturcio          #+#    #+#              #
-#    Updated: 2025/04/08 15:23:44 by brturcio         ###   ########.fr        #
+#    Updated: 2025/04/08 16:44:03 by brturcio         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,4 +67,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus

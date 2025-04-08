@@ -6,7 +6,7 @@
 /*   By: brturcio <brturcio@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 12:54:06 by brturcio          #+#    #+#             */
-/*   Updated: 2025/04/08 16:27:33 by brturcio         ###   ########.fr       */
+/*   Updated: 2025/04/08 17:22:46 by brturcio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	check_args(int ac, char **av)
 	}
 	if (ft_atoi(av[1]) <= 0 || kill(ft_atoi(av[1]), 0) == -1)
 	{
-		write (1, "PIB not valide\n", 16);
+		write (1, "PID not valid\n", 16);
 		return (0);
 	}
 	return (1);
